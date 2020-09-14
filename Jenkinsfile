@@ -10,6 +10,7 @@ pipeline {
         }
         stage ('Subir Tomcat'){
             steps{
+                sleep(180)
                 dir('E:\\Meu GitHub\\CursoJenkins\\projeto\\apache-tomcat-8.5.50\\bin'){
                     bat 'startup.bat -d'
                 }  
