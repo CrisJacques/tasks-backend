@@ -1,9 +1,29 @@
 pipeline {
     agent any
     stages {
+        stage ('Subir Tomcat'){
+            steps{
+                dir('E:\Meu GitHub\CursoJenkins\projeto\apache-tomcat-8.5.50\bin'){
+                    bat 'startup.bat -d'
+                }  
+            }
+        }
+
+        stage ('Subir banco de testes e Sonar'){
+            steps{
+                dir('E:\Meu GitHub\CursoJenkins'){
+                    bat 'docker-compose up -d'
+                }
+            }
+        }
+
         stage ('Build Backend'){
             steps {
-                bat 'mvn clean package -DskipTests=true'
+                dir('C:\Users\cjn_1\.jenkins\workspace\Pipeline'){
+                    sleep(60)
+                    bat 'mvn clean package -DskipTests=true'
+                }
+                
             }
         }
         stage ('Unit Tests'){
@@ -59,8 +79,16 @@ pipeline {
                 }
             }
         }
+        stage ('Derruba Sonar e Banco de Testes'){
+            steps{
+                bat 'docker stop pg-tasks'
+                bat 'docker stop sonar'
+                bat 'docker stop pg-sonar'
+            }
+        }
         stage ('Deploy Prod'){
             steps {
+                sleep(30)
                 bat 'docker-compose build'
                 bat 'docker-compose up -d'
             }
