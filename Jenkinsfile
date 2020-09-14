@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('Subir Tomcat'){
             steps{
-                dir('E:\Meu GitHub\CursoJenkins\projeto\apache-tomcat-8.5.50\bin'){
+                dir('E:\\Meu GitHub\\CursoJenkins\\projeto\\apache-tomcat-8.5.50\\bin'){
                     bat 'startup.bat -d'
                 }  
             }
@@ -11,7 +11,7 @@ pipeline {
 
         stage ('Subir banco de testes e Sonar'){
             steps{
-                dir('E:\Meu GitHub\CursoJenkins'){
+                dir('E:\\Meu GitHub\\CursoJenkins'){
                     bat 'docker-compose up -d'
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
 
         stage ('Build Backend'){
             steps {
-                dir('C:\Users\cjn_1\.jenkins\workspace\Pipeline'){
+                dir('C:\\Users\\cjn_1\\.jenkins\\workspace\\Pipeline'){
                     sleep(60)
                     bat 'mvn clean package -DskipTests=true'
                 }
