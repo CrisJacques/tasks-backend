@@ -1,14 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage ('Subir Tomcat'){
-            steps{
-                dir('E:\\Meu GitHub\\CursoJenkins\\projeto\\apache-tomcat-8.5.50\\bin'){
-                    bat 'startup.bat -d'
-                }  
-            }
-        }
-
         stage ('Subir banco de testes e Sonar'){
             steps{
                 dir('E:\\Meu GitHub\\CursoJenkins'){
@@ -16,7 +8,13 @@ pipeline {
                 }
             }
         }
-
+        stage ('Subir Tomcat'){
+            steps{
+                dir('E:\\Meu GitHub\\CursoJenkins\\projeto\\apache-tomcat-8.5.50\\bin'){
+                    bat 'startup.bat -d'
+                }  
+            }
+        }
         stage ('Build Backend'){
             steps {
                 dir('C:\\Users\\cjn_1\\.jenkins\\workspace\\Pipeline'){
